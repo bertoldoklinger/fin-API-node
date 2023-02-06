@@ -7,13 +7,13 @@
 **1.** Clone este repositório
 
 ```
-git clone git@github.com:Ygohr/fin-api-ignite-nodejs.git
+https://github.com/bertoldoklinger/fin-API-node.git
 ```
 
 **2.** Vá até o diretório raiz do projeto
 
 ```
-cd fin-api-node-js
+cd fin-API-node
 ```
 
 **3.** Instale as dependências necessárias
