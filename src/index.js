@@ -7,7 +7,7 @@ app.use(express.json());
 
 const customers = [];
 
-function verifyIfExistssAccountCpf(req, res, next) {
+function verifyIfExistsAccountCpf(req, res, next) {
   const { cpf } = req.headers;
 
   const customer = customers.find((customer) => customer.cpf === cpf);
@@ -32,12 +32,12 @@ function getBalance(statement) {
   return balance;
 }
 
-app.get("/statement", verifyIfExistssAccountCpf, (req, res) => {
+app.get("/statement", verifyIfExistsAccountCpf, (req, res) => {
   const { customer } = req;
   return res.json(customer.statement);
 });
 
-app.get("/statement/date", verifyIfExistssAccountCpf, (req, res) => {
+app.get("/statement/date", verifyIfExistsAccountCpf, (req, res) => {
   const { customer } = req;
   const { date } = req.query;
 
@@ -51,12 +51,12 @@ app.get("/statement/date", verifyIfExistssAccountCpf, (req, res) => {
   return res.json(statement);
 });
 
-app.get("/account", verifyIfExistssAccountCpf, (req, res) => {
+app.get("/account", verifyIfExistsAccountCpf, (req, res) => {
   const { customer } = req;
   return res.json(customer);
 });
 
-app.get("/balance", verifyIfExistssAccountCpf, (req, res) => {
+app.get("/balance", verifyIfExistsAccountCpf, (req, res) => {
   const { customer } = req;
 
   const balance = getBalance(customer.statement);
@@ -70,7 +70,7 @@ app.post("/account", (req, res) => {
   const customerAlreadyExists = customers.some(
     (customer) => customer.cpf === cpf
   );
-
+  ("");
   if (customerAlreadyExists) {
     return res.status(400).json({ error: "Customer already exists!" });
   }
@@ -85,7 +85,7 @@ app.post("/account", (req, res) => {
   return res.status(201).send();
 });
 
-app.post("/deposit", verifyIfExistssAccountCpf, (req, res) => {
+app.post("/deposit", verifyIfExistsAccountCpf, (req, res) => {
   const { description, amount } = req.body;
 
   const { customer } = req;
@@ -102,7 +102,7 @@ app.post("/deposit", verifyIfExistssAccountCpf, (req, res) => {
   return res.status(201).send();
 });
 
-app.post("/withdraw", verifyIfExistssAccountCpf, (req, res) => {
+app.post("/withdraw", verifyIfExistsAccountCpf, (req, res) => {
   const { amount } = req.body;
   const { customer } = req;
 
@@ -123,7 +123,7 @@ app.post("/withdraw", verifyIfExistssAccountCpf, (req, res) => {
   return res.status(201).send();
 });
 
-app.put("/account", verifyIfExistssAccountCpf, (req, res) => {
+app.put("/account", verifyIfExistsAccountCpf, (req, res) => {
   const { name } = req.body;
   const { customer } = req;
 
@@ -132,11 +132,15 @@ app.put("/account", verifyIfExistssAccountCpf, (req, res) => {
   return res.status(201).send();
 });
 
-app.delete("/account", verifyIfExistssAccountCpf, (req, res) => {
+app.delete("/account", verifyIfExistsAccountCpf, (req, res) => {
   const { customer } = req;
 
-  customers.splice(customer, 1);
+  customers.splice(customers.indexOf(customer), 1);
 
+  return res.status(200).json(customers);
+});
+
+app.get("/account/all", (req, res) => {
   return res.status(200).json(customers);
 });
 
