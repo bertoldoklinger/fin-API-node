@@ -48,6 +48,7 @@ Para realização de **requisições** na aplicação, deve ser utilizado o **In
 - [x] Deve ser possível retornar o balanço
 - [x] Deve ser possível deletar uma conta
 - [x] Deve ser possível retornar o balanço
+- [x] Deve ser possível retornar todos os clientes
 
 ---
 
